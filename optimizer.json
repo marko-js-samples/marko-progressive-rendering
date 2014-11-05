@@ -1,0 +1,9 @@
+{
+    "dependencies": [
+        "require: marko-widgets",
+        "require: ./header-widget",
+        "require: ./nav-widget",
+        "require: ./main-widget",
+        "require: ./footer-widget"
+    ]
+}

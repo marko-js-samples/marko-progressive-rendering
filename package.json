@@ -1,0 +1,30 @@
+{
+  "name": "marko-progressive-rendering",
+  "version": "1.0.0",
+  "description": "Sample Express-based server app that demonstrates progressive rendering with Marko",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raptorjs/raptor-samples.git"
+  },
+  "author": "Patrick Steele-idem <pnidem@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raptorjs/raptor-samples/issues"
+  },
+  "homepage": "https://github.com/raptorjs/raptor-samples",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "compression": "^1.2.0",
+    "express": "^4.9.4",
+    "marko": "^1.0.0",
+    "marko-widgets": "^1.1.9",
+    "optimizer": "^1.4.12",
+    "serve-static": "^1.6.2"
+  }
+}

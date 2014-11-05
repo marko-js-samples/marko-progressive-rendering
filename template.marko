@@ -1,0 +1,61 @@
+<optimizer-page package-path="./optimizer.json"/>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>marko-async</title>
+    <optimizer-head/>
+</head>
+<body>
+    <h1>Progressive Rendering with Marko</h1>
+
+    <p if="data.reorderEnabled">
+        Page loading with client-side reodering of fragments <b style="color: green">enabled</b>.
+        Reload page with in-order flushing:
+        <a href="/">in-order flushing</a>
+    </p>
+    <p else>
+        Page loading with client-side reodering of fragments <b style="color: darkred">disabled</b>.
+        Reload page with out-of-order flushing:
+        <a href="/?reorder">out-of-order flushing</a>
+    </p>
+
+    <p>
+        Top text
+    </p>
+
+    <async-fragment data-provider="data.headerDataProvider"arg-delay="${4000}" var="header" client-reorder="data.reorderEnabled">
+        <header w-bind="./header-widget">
+            <h1>Header</h1>
+        </header>
+    </async-fragment>
+
+    <async-fragment data-provider="data.navDataProvider" arg-delay="${1000}" var="nav" client-reorder="data.reorderEnabled">
+        <nav w-bind="./nav-widget">
+            <h1>Nav</h1>
+        </nav>
+    </async-fragment>
+
+    <async-fragment data-provider="data.mainDataProvider" arg-delay="${2000}" var="main" client-reorder="data.reorderEnabled">
+        <main w-bind="./main-widget">
+            <h1>Main</h1>
+        </main>
+    </async-fragment>
+
+    <async-fragment data-provider="data.footerDataProvider" arg-delay="${3000}" var="footer" client-reorder="data.reorderEnabled">
+        <footer w-bind="./footer-widget">
+            <h1>Footer</h1>
+        </footer>
+    </async-fragment>
+
+    <p>
+        Bottom text
+    </p>
+
+    <optimizer-body/>
+    <async-fragments/>
+    <init-widgets immediate/>
+
+</body>
+</html>

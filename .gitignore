@@ -1,0 +1,15 @@
+/work
+/build
+/.idea/
+/npm-debug.log
+node_modules
+/*.sublime-workspace
+*.orig
+.DS_Store
+coverage
+*.marko.js
+*.dust.js
+*.hbs.js
+.cache/
+static/
+build/
