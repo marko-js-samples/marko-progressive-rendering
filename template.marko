@@ -10,16 +10,34 @@
 <body>
     <h1>Progressive Rendering with Marko</h1>
 
-    <p if="data.reorderEnabled">
-        Page loading with client-side reodering of fragments <b style="color: green">enabled</b>.
-        Reload page with in-order flushing:
-        <a href="/">in-order flushing</a>
-    </p>
-    <p else>
-        Page loading with client-side reodering of fragments <b style="color: darkred">disabled</b>.
-        Reload page with out-of-order flushing:
-        <a href="/?reorder">out-of-order flushing</a>
-    </p>
+    <h2>
+        Page Render Mode:
+    </h2>
+
+    <def function="option(type, desc)">
+        <span if="data.renderMode === type">
+            $desc ←
+        </span>
+        <span else>
+            <a href="/?${type}">$desc</a>
+        </span>
+    </def>
+
+    <ul>
+        <li>
+            ${option('single-chunk', 'Single Chunk')}
+        </li>
+        <li>
+            ${option('progressive-in-order', 'Progressive (in-order)')}
+        </li>
+        <li>
+            ${option('progressive-out-of-order', 'Progressive (out-of-order)')}
+        </li>
+    </ul>
+
+    <h2 id="loading">
+        Page loading...
+    </h2>
 
     <p>
         Top text

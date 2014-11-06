@@ -11,14 +11,31 @@ var port = process.env.PORT || 8080;
 
 
 app.use(compression()); // Enable gzip compression for all HTTP responses
+
+app.use('/static', function(req, res, next) {
+    setTimeout(next, 200);
+});
+
 app.use('/static', serveStatic(__dirname + '/static'));
 
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
-    var reorder = req.query.bigpipe != null || req.query.reorder != null;
+    var renderMode;
+    var reorder = false;
 
-    template.render({
+    if (req.query['single-chunk'] != null) {
+        reorder = false;
+        renderMode = 'single-chunk';
+    } else if (req.query['progressive-in-order'] != null) {
+        reorder = false;
+        renderMode = 'progressive-in-order';
+    } else {
+        reorder = true;
+        renderMode = 'progressive-out-of-order';
+    }
+
+    var viewModel = {
             headerDataProvider: function(args, callback) {
                 setTimeout(callback, args.delay);
             },
@@ -31,8 +48,22 @@ app.get('/', function(req, res) {
             footerDataProvider: function(args, callback) {
                 setTimeout(callback, args.delay);
             },
+            renderMode: renderMode,
             reorderEnabled: reorder
-        }, res);
+        };
+
+    if (renderMode === 'single-chunk') {
+        template.render(viewModel, function(err, html) {
+            if (err) {
+                res.end(err.toString());
+                return;
+            }
+            res.end(html);
+        });
+    } else {
+        template.render(viewModel, res);
+    }
+
 });
 
 app.listen(port, function() {
