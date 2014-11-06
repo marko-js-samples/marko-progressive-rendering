@@ -25,7 +25,7 @@
     "marko": "^1.0.0",
     "marko-widgets": "^1.1.9",
     "optimizer": "^1.4.12",
-    "raptor-dom": "^1.0.2",
+    "raptor-dom": "^1.0.3",
     "serve-static": "^1.6.2"
   }
 }
