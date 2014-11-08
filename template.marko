@@ -6,6 +6,11 @@
     <meta charset="UTF-8" />
     <title>marko-async</title>
     <optimizer-head/>
+    <script>
+    function clearPage() {
+        document.body.innerHTML = 'Reloading page... Waiting for server...';
+    }
+    </script>
 </head>
 <body>
     <h1>Progressive Rendering with Marko</h1>
@@ -19,7 +24,7 @@
             $desc ←
         </span>
         <span else>
-            <a href="/?${type}">$desc</a>
+            <a href="/?${type}" onclick="clearPage();">$desc</a>
         </span>
     </def>
 
