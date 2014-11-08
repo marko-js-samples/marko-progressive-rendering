@@ -13,4 +13,5 @@ Progressive HTML rendering is a technique that improves the performance of websi
 Learn more about Marko on Github: 
 [github.com/raptorjs/marko](https://github.com/raptorjs/marko)
 
-
+More reading:
+[StrongLoop Blog: Bypassing Express View Rendering for Speed and Modularity](http://strongloop.com/strongblog/bypassing-express-view-rendering-for-speed-and-modularity/)
