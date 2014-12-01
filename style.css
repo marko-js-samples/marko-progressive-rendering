@@ -1,3 +1,27 @@
+h1 {
+	font-size: 1.5em;
+}
+
 body {
 	font: 12pt/1.5em sans-serif;
+}
+
+header {
+	border: 3px solid red;
+	padding: 5px;
+}
+
+nav {
+	border: 3px solid orange;
+	padding: 5px;
+}
+
+main {
+	border: 3px solid pink;
+	padding: 5px;
+}
+
+footer {
+	border: 3px solid blue;
+	padding: 5px;
 }

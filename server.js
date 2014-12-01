@@ -21,19 +21,9 @@ app.use('/static', serveStatic(__dirname + '/static'));
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
-    var renderMode;
-    var reorder = false;
-
-    if (req.query['single-chunk'] != null) {
-        reorder = false;
-        renderMode = 'single-chunk';
-    } else if (req.query['progressive-in-order'] != null) {
-        reorder = false;
-        renderMode = 'progressive-in-order';
-    } else {
-        reorder = true;
-        renderMode = 'progressive-out-of-order';
-    }
+    var renderMode = req.query.renderMode || 'progressive-out-of-order';
+    var jsLocation = req.query.jsLocation || 'middle';
+    var reorder = renderMode === 'progressive-out-of-order';
 
     var viewModel = {
             headerDataProvider: function(args, callback) {
@@ -49,7 +39,8 @@ app.get('/', function(req, res) {
                 setTimeout(callback, args.delay);
             },
             renderMode: renderMode,
-            reorderEnabled: reorder
+            reorderEnabled: reorder,
+            jsLocation: jsLocation
         };
 
     if (renderMode === 'single-chunk') {

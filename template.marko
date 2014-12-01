@@ -15,60 +15,120 @@
 <body>
     <h1>Progressive Rendering with Marko</h1>
 
-    <h2>
-        Page Render Mode:
-    </h2>
+    <fieldset>
+        <legend>Options</legend>
 
-    <def function="option(type, desc)">
-        <span if="data.renderMode === type">
-            $desc ←
-        </span>
-        <span else>
-            <a href="/?${type}" onclick="clearPage();">$desc</a>
-        </span>
-    </def>
+        <h3>Page Render Mode:</h3>
 
-    <ul>
-        <li>
-            ${option('single-chunk', 'Single Chunk')}
-        </li>
-        <li>
-            ${option('progressive-in-order', 'Progressive (in-order)')}
-        </li>
-        <li>
-            ${option('progressive-out-of-order', 'Progressive (out-of-order)')}
-        </li>
-    </ul>
+        <def function="renderModeOption(type, desc)">
+            <span if="data.renderMode === type">
+                $desc ←
+            </span>
+            <span else>
+                <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}" onclick="clearPage();">$desc</a>
+            </span>
+        </def>
 
-    <h2 id="loading">
+        <ul>
+            <li>
+                ${renderModeOption('single-chunk', 'Single Chunk')}
+            </li>
+            <li>
+                ${renderModeOption('progressive-in-order', 'Progressive (in-order)')}
+            </li>
+            <li>
+                ${renderModeOption('progressive-out-of-order', 'Progressive (out-of-order)')}
+            </li>
+        </ul>
+
+        <h3>Location of script tags:</h3>
+
+        <def function="jsLocationOption(loc, desc)">
+            <span if="data.jsLocation === loc">
+                $desc ←
+            </span>
+            <span else>
+                <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}" onclick="clearPage();">$!desc</a>
+            </span>
+        </def>
+
+        <ul>
+            <li>
+                ${jsLocationOption('middle', 'Before async fragments')}
+            </li>
+            <li>
+                ${jsLocationOption('bottom', 'After async fragments')}
+            </li>
+        </ul>
+    </fieldset>
+
+
+
+    <h3 id="loading">
         Page loading...
-    </h2>
+    </h3>
 
     <p>
         Top text
     </p>
 
-    <async-fragment data-provider="data.headerDataProvider"arg-delay="${4000}" var="header" client-reorder="data.reorderEnabled">
+    <if test="data.jsLocation eq 'middle'">
+        <optimizer-body/>
+    </if>
+
+    <async-fragment data-provider="data.headerDataProvider"
+        arg-delay="${500}"
+        var="header"
+        client-reorder="data.reorderEnabled">
+
         <header w-bind="./header-widget">
-            <h1>Header</h1>
+            <h1>1) Header</h1>
+            <span w-el-id="message">&nbsp;</span>
         </header>
     </async-fragment>
 
-    <async-fragment data-provider="data.navDataProvider" arg-delay="${1000}" var="nav" client-reorder="data.reorderEnabled">
+    <async-fragment data-provider="data.navDataProvider"
+        arg-delay="${1000}"
+        var="nav"
+        client-reorder="data.reorderEnabled">
+
         <nav w-bind="./nav-widget">
-            <h1>Nav</h1>
+            <h1>2) Nav</h1>
+            <span w-el-id="message">&nbsp;</span>
         </nav>
     </async-fragment>
 
-    <async-fragment data-provider="data.mainDataProvider" arg-delay="${2000}" var="main" client-reorder="data.reorderEnabled">
+    <async-fragment data-provider="data.mainDataProvider"
+        arg-delay="${4000}"
+        var="main"
+        client-reorder="data.reorderEnabled"
+        name="main">
+
+        <async-fragment-placeholder>
+            Loading "main"...
+        </async-fragment-placeholder>
+
         <main w-bind="./main-widget">
-            <h1>Main</h1>
+            <h1>3) Main</h1>
+            <span w-el-id="message">&nbsp;</span>
         </main>
     </async-fragment>
 
-    <async-fragment data-provider="data.footerDataProvider" arg-delay="${3000}" var="footer" client-reorder="data.reorderEnabled">
+    <async-fragment data-provider="data.footerDataProvider"
+        arg-delay="${1000}"
+        var="footer"
+        client-reorder="data.reorderEnabled"
+        show-after="main">
+
+        <!--
+        NOTE: This demonstrates how the "show-after" attribute
+              can be used to delay showing an async fragment
+              until after another async fragment is shown.
+        -->
+
         <footer w-bind="./footer-widget">
-            <h1>Footer</h1>
+            <h1>4) Footer</h1>
+            <span w-el-id="message">&nbsp;</span>
         </footer>
     </async-fragment>
 
@@ -76,9 +136,16 @@
         Bottom text
     </p>
 
-    <optimizer-body/>
     <async-fragments/>
-    <init-widgets immediate/>
+
+    <if test="data.jsLocation eq 'bottom'">
+        <optimizer-body/>
+        <init-widgets/>
+    </if>
+    <else>
+        <init-widgets immediate/>
+        <!-- NOTE: Use immediate if the JavaScript is included before the rendered widgets -->
+    </else>
 
 </body>
 </html>

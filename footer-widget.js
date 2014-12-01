@@ -1,5 +1,9 @@
 function Widget() {
-    this.el.style.border = '3px solid blue';
+    var el = this.el;
+    this.getEl('message').innerHTML = 'Behavior Attached (click me)';
+    el.addEventListener('click', function() {
+        el.style.backgroundColor = 'yellow';
+    });
 }
 
 module.exports = Widget;
