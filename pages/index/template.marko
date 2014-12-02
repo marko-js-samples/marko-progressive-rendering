@@ -1,0 +1,85 @@
+<optimizer-page package-path="./optimizer.json"/>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Progressive Rendering with Marko</title>
+    <optimizer-head/>
+    <script>
+    function clearPage() {
+        document.body.innerHTML = 'Reloading page... Waiting for server...';
+    }
+    </script>
+</head>
+<body w-bind="./widget">
+    <header>
+        <h1>Progressive HTML Rendering with Marko</h1>
+    </header>
+
+    <section class="options">
+        <h2>Options</h2>
+
+        <h3>Page Render Mode:</h3>
+
+        <def function="renderModeOption(type, desc)">
+            <span if="data.renderMode === type">
+                <b>$desc</b> ←
+            </span>
+            <span else>
+                <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}" onclick="clearPage();">$desc</a>
+            </span>
+        </def>
+
+        <ul>
+            <li>
+                ${renderModeOption('single-chunk', 'Single Chunk')}
+            </li>
+            <li>
+                ${renderModeOption('progressive-in-order', 'Progressive (in-order)')}
+            </li>
+            <li>
+                ${renderModeOption('progressive-out-of-order', 'Progressive (out-of-order)')}
+            </li>
+        </ul>
+
+        <h3>Location of script tags:</h3>
+
+        <def function="jsLocationOption(loc, desc)">
+            <span if="data.jsLocation === loc">
+                <b>$desc ←</b>
+            </span>
+            <span else>
+                <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}" onclick="clearPage();">$!desc</a>
+            </span>
+        </def>
+
+        <ul>
+            <li>
+                ${jsLocationOption('middle', 'Before async fragments')}
+            </li>
+            <li>
+                ${jsLocationOption('bottom', 'After async fragments')}
+            </li>
+        </ul>
+
+    </section>
+
+    <main>
+        <h2 w-el-id="loading" class="loading">
+            <span w-el-id="loadingMessage">Page loading...</span>
+            <button type="button" w-el-id="refreshButton">↺ Refresh</button>
+        </h2>
+        <div class="iframe-container">
+            <iframe src="about:blank" w-el-id="iframe"></iframe>
+        </div>
+
+    </main>
+
+    <optimizer-body/>
+    <init-widgets/>
+
+    <browser-refresh/>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>marko-async</title>
+    <title>Progressive Rendering with Marko</title>
     <optimizer-head/>
     <script>
     function clearPage() {
@@ -15,59 +15,6 @@
 <body>
     <h1>Progressive Rendering with Marko</h1>
 
-    <fieldset>
-        <legend>Options</legend>
-
-        <h3>Page Render Mode:</h3>
-
-        <def function="renderModeOption(type, desc)">
-            <span if="data.renderMode === type">
-                <b>$desc</b> ←
-            </span>
-            <span else>
-                <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}" onclick="clearPage();">$desc</a>
-            </span>
-        </def>
-
-        <ul>
-            <li>
-                ${renderModeOption('single-chunk', 'Single Chunk')}
-            </li>
-            <li>
-                ${renderModeOption('progressive-in-order', 'Progressive (in-order)')}
-            </li>
-            <li>
-                ${renderModeOption('progressive-out-of-order', 'Progressive (out-of-order)')}
-            </li>
-        </ul>
-
-        <h3>Location of script tags:</h3>
-
-        <def function="jsLocationOption(loc, desc)">
-            <span if="data.jsLocation === loc">
-                <b>$desc ←</b>
-            </span>
-            <span else>
-                <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}" onclick="clearPage();">$!desc</a>
-            </span>
-        </def>
-
-        <ul>
-            <li>
-                ${jsLocationOption('middle', 'Before async fragments')}
-            </li>
-            <li>
-                ${jsLocationOption('bottom', 'After async fragments')}
-            </li>
-        </ul>
-    </fieldset>
-
-
-
-    <h3 id="loading">
-        Page loading...
-    </h3>
-
     <p>
         Top text
     </p>
@@ -77,7 +24,8 @@
     </if>
 
     <async-fragment data-provider="data.headerDataProvider"
-        arg-delay="${500}"
+        arg-delay="${750}"
+        name="header"
         var="header"
         client-reorder="data.reorderEnabled">
 
@@ -88,9 +36,10 @@
     </async-fragment>
 
     <async-fragment data-provider="data.navDataProvider"
-        arg-delay="${1000}"
+        arg-delay="${500}"
         var="nav"
-        client-reorder="data.reorderEnabled">
+        client-reorder="data.reorderEnabled"
+        show-after="header">
 
         <nav w-bind="./nav-widget">
             <h1>2) Nav</h1>
@@ -99,14 +48,18 @@
     </async-fragment>
 
     <async-fragment data-provider="data.mainDataProvider"
-        arg-delay="${2000}"
+        arg-delay="${3000}"
+        timeout="3500"
         var="main"
-        client-reorder="data.reorderEnabled"
-        name="main">
+        client-reorder="data.reorderEnabled">
 
         <async-fragment-placeholder>
             Loading "main"...
         </async-fragment-placeholder>
+
+        <async-fragment-timeout>
+            A timeout occurred!
+        </async-fragment-timeout>
 
         <main w-bind="./main-widget">
             <h1>3) Main</h1>
@@ -117,8 +70,7 @@
     <async-fragment data-provider="data.footerDataProvider"
         arg-delay="${1000}"
         var="footer"
-        client-reorder="data.reorderEnabled"
-        show-after="main">
+        client-reorder="data.reorderEnabled">
 
         <!--
         NOTE: This demonstrates how the "show-after" attribute

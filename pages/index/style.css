@@ -1,0 +1,57 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+body {
+    font: 12pt/1.5em sans-serif;
+}
+
+.loading {
+    color: orange;
+}
+
+.loading-done {
+    color: green;
+}
+
+.loading button {
+    visibility: hidden;
+}
+
+section.options {
+    position: fixed;
+    left: 0px;
+    width: 300px;
+    top: 70px;
+    bottom: 0px;
+    padding: 10px;
+}
+
+main {
+    position: fixed;
+    left: 300px;
+    right: 10px;
+    top: 70px;
+    bottom: 10px;
+}
+
+main .iframe-container {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 60px;
+    bottom: 0px;
+}
+
+main iframe {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #c0c0c0;
+}

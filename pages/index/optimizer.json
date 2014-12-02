@@ -1,0 +1,7 @@
+{
+    "dependencies": [
+        "style.css",
+        "require: marko-widgets",
+        "require: ./widget"
+    ]
+}
