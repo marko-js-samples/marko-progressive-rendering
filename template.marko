@@ -22,7 +22,7 @@
 
         <def function="renderModeOption(type, desc)">
             <span if="data.renderMode === type">
-                $desc ←
+                <b>$desc</b> ←
             </span>
             <span else>
                 <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}" onclick="clearPage();">$desc</a>
@@ -45,7 +45,7 @@
 
         <def function="jsLocationOption(loc, desc)">
             <span if="data.jsLocation === loc">
-                $desc ←
+                <b>$desc ←</b>
             </span>
             <span else>
                 <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}" onclick="clearPage();">$!desc</a>
