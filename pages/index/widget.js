@@ -7,14 +7,16 @@ function Widget(widgetConfig) {
 
     var startTime;
 
-    function refreshPage() {
+    function refreshPage(url) {
         loadingMessageEl.innerHTML = 'Page loading...';
         loadingEl.className = 'loading';
 
         startTime = Date.now();
-        var url = '/iframe?renderMode=' + widgetConfig.renderMode +
-            '&jsLocation=' +  widgetConfig.jsLocation +
-            '&ts=' + startTime;
+        if (typeof url !== 'string') {
+            url = '/iframe?renderMode=' + widgetConfig.renderMode +
+                '&jsLocation=' +  widgetConfig.jsLocation +
+                '&ts=' + startTime;
+        }
 
         var done = false;
 

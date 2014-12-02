@@ -10,11 +10,6 @@
 
     <title>Async Fragments Demo using Marko</title>
     <optimizer-head/>
-    <script>
-    function clearPage() {
-        document.body.innerHTML = 'Reloading page... Waiting for server...';
-    }
-    </script>
 </head>
 <body w-bind="./widget">
     <header>
@@ -37,7 +32,7 @@
                 <b>$desc</b> ←
             </span>
             <span else>
-                <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}" onclick="clearPage();">$desc</a>
+                <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}">$desc</a>
             </span>
         </def>
 
@@ -62,7 +57,7 @@
                 <b>$desc ←</b>
             </span>
             <span else>
-                <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}" onclick="clearPage();">$!desc</a>
+                <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}">$!desc</a>
             </span>
         </def>
 
