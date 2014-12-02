@@ -9,6 +9,10 @@ h1 {
     font-size: 1.5em;
 }
 
+h1 a {
+    font-size: 14px;
+}
+
 body {
     font: 12pt/1.5em sans-serif;
 }
