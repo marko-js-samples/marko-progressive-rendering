@@ -57,9 +57,6 @@
         </fieldset>
 
 
-
-        <h3>Location of script tags:</h3>
-
         <def function="jsLocationOption(loc, desc)">
             <span if="data.jsLocation === loc">
                 <b>$desc ←</b>
@@ -69,22 +66,24 @@
             </span>
         </def>
 
-        <ul>
-            <li>
-                ${jsLocationOption('middle', 'Before async fragments')}
-            </li>
-            <li>
-                ${jsLocationOption('bottom', 'After async fragments')}
-            </li>
-        </ul>
-
+        <fieldset>
+            <legend>Location of Script Tags</legend>
+            <ul>
+                <li>
+                    ${jsLocationOption('middle', 'Before async fragments')}
+                </li>
+                <li>
+                    ${jsLocationOption('bottom', 'After async fragments')}
+                </li>
+            </ul>
+        </fieldset>
     </section>
 
     <main>
         <h2 w-el-id="loading" class="loading">
             <span w-el-id="loadingMessage">Page loading...</span>
             <button type="button" w-el-id="refreshButton">↺ Refresh</button>
-            <button type="button" w-el-id="newWindowButton">⬈ Open in New Window</button>
+            <button type="button" w-el-id="newWindowButton">↗ Open in New Window</button>
 
         </h2>
         <div class="iframe-container">

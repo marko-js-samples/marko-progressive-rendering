@@ -27,10 +27,12 @@ body {
 }
 
 .loading {
+    font-size: 1em;
     color: orange;
 }
 
 .loading-done {
+    font-size: 1em;
     color: green;
 }
 
@@ -69,7 +71,7 @@ main iframe {
     border: 2px solid #c0c0c0;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 700px) {
 
     section.options {
         position: static;
