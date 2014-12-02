@@ -13,6 +13,15 @@ h1 a {
     font-size: 14px;
 }
 
+fieldset ul {
+    padding-left: 20px;
+}
+
+header h1 {
+    padding-bottom: 0px;
+    margin-bottom: 4px;
+}
+
 body {
     font: 12pt/1.5em sans-serif;
 }
@@ -58,4 +67,39 @@ main iframe {
     width: 100%;
     height: 100%;
     border: 2px solid #c0c0c0;
+}
+
+@media (max-width: 540px) {
+
+    section.options {
+        position: static;
+        left: auto;
+        width: auto;
+        top: auto;
+        bottom: auto;
+        padding: 10px;
+    }
+
+    main {
+        position: static;
+        left: auto;
+        width: auto;
+        top: auto;
+        bottom: auto;
+        padding: 10px;
+    }
+
+    main .iframe-container {
+        position: static;
+        left: auto;
+        width: auto;
+        top: auto;
+        bottom: auto;
+    }
+
+    main iframe {
+        width: 100%;
+        height: 700px;
+        border: 2px solid #c0c0c0;
+    }
 }

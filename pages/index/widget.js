@@ -3,6 +3,7 @@ function Widget(widgetConfig) {
     var iframe = this.getEl('iframe');
     var loadingMessageEl = this.getEl('loadingMessage');
     var refreshButton = this.getEl('refreshButton');
+    var newWindowButton = this.getEl('newWindowButton');
 
     var startTime;
 
@@ -23,7 +24,7 @@ function Widget(widgetConfig) {
             }
 
             var elapsedTime = Date.now() - startTime;
-            loadingMessageEl.innerHTML = 'onload event triggered after ' + elapsedTime + 'ms';
+            loadingMessageEl.innerHTML = 'Loaded in ' + elapsedTime + 'ms';
             loadingEl.className = 'loading-done';
 
             done = true;
@@ -50,6 +51,14 @@ function Widget(widgetConfig) {
     } else if (window.attachEvent) {
         window.attachEvent('onload', refreshPage );
     }
+
+    newWindowButton.addEventListener('click', function() {
+        var url = '/iframe?renderMode=' + widgetConfig.renderMode +
+            '&jsLocation=' +  widgetConfig.jsLocation;
+
+        window.open(url, '_blank');
+    });
+
 }
 
 module.exports = Widget;

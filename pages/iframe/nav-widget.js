@@ -1,8 +1,10 @@
 function Widget() {
     var el = this.el;
-    this.getEl('message').innerHTML = 'Behavior Attached (click me)';
+    var messageEl = this.getEl('message');
+    messageEl.innerHTML = 'Behavior Attached (click me)';
     el.addEventListener('click', function() {
-        el.style.backgroundColor = 'yellow';
+        el.style.backgroundColor = '#2c3e50';
+        messageEl.innerHTML = 'Clicked!';
     });
 }
 

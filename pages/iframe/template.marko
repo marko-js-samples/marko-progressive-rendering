@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Progressive Rendering with Marko</title>
+    <title>Async Fragments Demo using Marko</title>
     <optimizer-head/>
     <script>
     function clearPage() {
@@ -30,7 +30,7 @@
         client-reorder="data.reorderEnabled">
 
         <header w-bind="./header-widget">
-            <h1>1) Header</h1>
+            <h2>1) Header</h2>
             <span w-el-id="message">&nbsp;</span>
         </header>
     </async-fragment>
@@ -42,7 +42,7 @@
         show-after="header">
 
         <nav w-bind="./nav-widget">
-            <h1>2) Nav</h1>
+            <h2>2) Nav</h2>
             <span w-el-id="message">&nbsp;</span>
         </nav>
     </async-fragment>
@@ -62,7 +62,7 @@
         </async-fragment-timeout>
 
         <main w-bind="./main-widget">
-            <h1>3) Main</h1>
+            <h2>3) Main</h2>
             <span w-el-id="message">&nbsp;</span>
         </main>
     </async-fragment>
@@ -79,7 +79,7 @@
         -->
 
         <footer w-bind="./footer-widget">
-            <h1>4) Footer</h1>
+            <h2>4) Footer</h2>
             <span w-el-id="message">&nbsp;</span>
         </footer>
     </async-fragment>

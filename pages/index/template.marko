@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Progressive Rendering with Marko</title>
+    <title>Async Fragments Demo using Marko</title>
     <optimizer-head/>
     <script>
     function clearPage() {
@@ -16,18 +16,17 @@
     <header>
         <h1>
             Progressive HTML Rendering with Marko
-            <a href="https://github.com/raptorjs-samples/marko-progressive-rendering"
-                target="_blank">
-                View code on Github
-            </a>
         </h1>
+
+        <a href="https://github.com/raptorjs-samples/marko-progressive-rendering"
+            target="_blank">
+            View code on Github
+        </a>
 
     </header>
 
     <section class="options">
         <h2>Options</h2>
-
-        <h3>Page Render Mode:</h3>
 
         <def function="renderModeOption(type, desc)">
             <span if="data.renderMode === type">
@@ -38,17 +37,22 @@
             </span>
         </def>
 
-        <ul>
-            <li>
-                ${renderModeOption('single-chunk', 'Single Chunk')}
-            </li>
-            <li>
-                ${renderModeOption('progressive-in-order', 'Progressive (in-order)')}
-            </li>
-            <li>
-                ${renderModeOption('progressive-out-of-order', 'Progressive (out-of-order)')}
-            </li>
-        </ul>
+        <fieldset>
+            <legend>Page Render Mode</legend>
+            <ul>
+                <li>
+                    ${renderModeOption('single-chunk', 'Single Chunk')}
+                </li>
+                <li>
+                    ${renderModeOption('progressive-in-order', 'Progressive (in-order)')}
+                </li>
+                <li>
+                    ${renderModeOption('progressive-out-of-order', 'Progressive (out-of-order)')}
+                </li>
+            </ul>
+        </fieldset>
+
+
 
         <h3>Location of script tags:</h3>
 
@@ -76,6 +80,8 @@
         <h2 w-el-id="loading" class="loading">
             <span w-el-id="loadingMessage">Page loading...</span>
             <button type="button" w-el-id="refreshButton">↺ Refresh</button>
+            <button type="button" w-el-id="newWindowButton">⬈ Open in New Window</button>
+
         </h2>
         <div class="iframe-container">
             <iframe src="about:blank" w-el-id="iframe"></iframe>
