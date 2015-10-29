@@ -1,4 +1,4 @@
-<optimizer-page package-path="./optimizer.json"/>
+<lasso-page package-path="./browser.json"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +9,9 @@
     <meta itemprop="description" name="Description" content="Async Fragments Demo using Marko">
 
     <title>Async Fragments Demo using Marko</title>
-    <optimizer-head/>
+    <lasso-head/>
 </head>
-<body w-bind="./widget">
+<body w-bind>
     <header>
         <h1>
             Async Fragments Demo using Marko
@@ -75,22 +75,21 @@
     </section>
 
     <main>
-        <h2 w-el-id="loading" class="loading">
-            <span w-el-id="loadingMessage">Page loading...</span>
-            <button type="button" w-el-id="refreshButton">↺ Refresh</button>
-            <button type="button" w-el-id="newWindowButton">↗ Open in New Window</button>
+        <h2 w-id="loading" class="loading">
+            <span w-id="loadingMessage">Page loading...</span>
+            <button type="button" w-id="refreshButton">↺ Refresh</button>
+            <button type="button" w-id="newWindowButton">↗ Open in New Window</button>
 
         </h2>
         <div class="iframe-container">
-            <iframe src="about:blank" w-el-id="iframe"></iframe>
+            <iframe src="about:blank" w-id="iframe"></iframe>
         </div>
 
     </main>
 
-    <optimizer-body/>
+    <lasso-body/>
     <init-widgets/>
 
     <browser-refresh/>
-
 </body>
 </html>
