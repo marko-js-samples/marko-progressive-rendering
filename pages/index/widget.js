@@ -1,66 +1,65 @@
-function Widget(widgetConfig) {
-    var loadingEl = this.getEl('loading');
-    var iframe = this.getEl('iframe');
-    var loadingMessageEl = this.getEl('loadingMessage');
-    var refreshButton = this.getEl('refreshButton');
-    var newWindowButton = this.getEl('newWindowButton');
+module.exports = require('marko-widgets').defineWidget({
+    init: function(widgetConfig) {
+        var loadingEl = this.getEl('loading');
+        var iframe = this.getEl('iframe');
+        var loadingMessageEl = this.getEl('loadingMessage');
+        var refreshButton = this.getEl('refreshButton');
+        var newWindowButton = this.getEl('newWindowButton');
 
-    var startTime;
+        var startTime;
 
-    function refreshPage(url) {
-        loadingMessageEl.innerHTML = 'Page loading...';
-        loadingEl.className = 'loading';
+        function refreshPage(url) {
+            loadingMessageEl.innerHTML = 'Page loading...';
+            loadingEl.className = 'loading';
 
-        startTime = Date.now();
-        if (typeof url !== 'string') {
-            url = '/iframe?renderMode=' + widgetConfig.renderMode +
-                '&jsLocation=' +  widgetConfig.jsLocation +
-                '&ts=' + startTime;
-        }
-
-        var done = false;
-
-        function handleOnload() {
-            if (done) {
-                return;
+            startTime = Date.now();
+            if (typeof url !== 'string') {
+                url = '/iframe?renderMode=' + widgetConfig.renderMode +
+                    '&jsLocation=' +  widgetConfig.jsLocation +
+                    '&ts=' + startTime;
             }
 
-            var elapsedTime = Date.now() - startTime;
-            loadingMessageEl.innerHTML = 'Loaded in ' + elapsedTime + 'ms';
-            loadingEl.className = 'loading-done';
+            var done = false;
 
-            done = true;
-            iframe.onreadystatechange = null;
-            iframe.onload = null;
+            function handleOnload() {
+                if (done) {
+                    return;
+                }
+
+                var elapsedTime = Date.now() - startTime;
+                loadingMessageEl.innerHTML = 'Loaded in ' + elapsedTime + 'ms';
+                loadingEl.className = 'loading-done';
+
+                done = true;
+                iframe.onreadystatechange = null;
+                iframe.onload = null;
+            }
+
+            iframe.onreadystatechange = function() {
+                if (iframe.readyState == "complete"){
+                    handleOnload();
+                }
+            };
+
+            iframe.onload = handleOnload;
+
+
+            iframe.src = url;
         }
 
-        iframe.onreadystatechange = function() {
-            if (iframe.readyState == "complete"){
-                handleOnload();
-            }
-        };
+        refreshButton.addEventListener('click', refreshPage);
 
-        iframe.onload = handleOnload;
+        if (window.addEventListener) {
+            window.addEventListener('load', refreshPage, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', refreshPage );
+        }
 
+        newWindowButton.addEventListener('click', function() {
+            var url = '/iframe?renderMode=' + widgetConfig.renderMode +
+                '&jsLocation=' +  widgetConfig.jsLocation;
 
-        iframe.src = url;
+            window.open(url, '_blank');
+        });
     }
-
-    refreshButton.addEventListener('click', refreshPage);
-
-    if (window.addEventListener) {
-        window.addEventListener('load', refreshPage, false);
-    } else if (window.attachEvent) {
-        window.attachEvent('onload', refreshPage );
-    }
-
-    newWindowButton.addEventListener('click', function() {
-        var url = '/iframe?renderMode=' + widgetConfig.renderMode +
-            '&jsLocation=' +  widgetConfig.jsLocation;
-
-        window.open(url, '_blank');
-    });
-
-}
-
-module.exports = Widget;
+});

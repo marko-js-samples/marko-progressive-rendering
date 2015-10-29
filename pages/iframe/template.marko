@@ -1,4 +1,4 @@
-<optimizer-page package-path="./optimizer.json"/>
+<lasso-page package-path="./browser.json"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Async Fragments Demo using Marko</title>
-    <optimizer-head/>
+    <lasso-head/>
     <script>
     function clearPage() {
         document.body.innerHTML = 'Reloading page... Waiting for server...';
@@ -21,7 +21,7 @@
     </p>
 
     <if test="data.jsLocation eq 'middle'">
-        <optimizer-body/>
+        <lasso-body/>
     </if>
 
     <async-fragment data-provider="data.headerDataProvider"
@@ -32,7 +32,7 @@
 
         <header w-bind="./header-widget">
             <h2>1) Header</h2>
-            <span w-el-id="message">&nbsp;</span>
+            <span w-id="message">&nbsp;</span>
         </header>
     </async-fragment>
 
@@ -44,7 +44,7 @@
 
         <nav w-bind="./nav-widget">
             <h2>2) Nav</h2>
-            <span w-el-id="message">&nbsp;</span>
+            <span w-id="message">&nbsp;</span>
         </nav>
     </async-fragment>
 
@@ -64,7 +64,7 @@
 
         <main w-bind="./main-widget">
             <h2>3) Main</h2>
-            <span w-el-id="message">&nbsp;</span>
+            <span w-id="message">&nbsp;</span>
         </main>
     </async-fragment>
 
@@ -81,7 +81,7 @@
 
         <footer w-bind="./footer-widget">
             <h2>4) Footer</h2>
-            <span w-el-id="message">&nbsp;</span>
+            <span w-id="message">&nbsp;</span>
         </footer>
     </async-fragment>
 
@@ -92,7 +92,7 @@
     <async-fragments/>
 
     <if test="data.jsLocation eq 'bottom'">
-        <optimizer-body/>
+        <lasso-body/>
         <init-widgets/>
     </if>
     <else>

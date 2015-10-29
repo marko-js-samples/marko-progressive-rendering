@@ -37,4 +37,4 @@ module.exports = function(req, res) {
         template.render(viewModel, res);
     }
 
-}
+};
