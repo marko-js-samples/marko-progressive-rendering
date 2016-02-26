@@ -23,9 +23,9 @@
     "browser-refresh-taglib": "^1.0.2",
     "compression": "^1.2.0",
     "express": "^4.9.4",
-    "marko": "^2.7.28",
-    "marko-widgets": "^5.0.6",
-    "lasso": "^1.11.11",
+    "marko": "^3.0.0-rc.1",
+    "marko-widgets": "^6.0.0-alpha.1",
+    "lasso": "^2.0.0",
     "serve-static": "^1.6.2"
   }
 }

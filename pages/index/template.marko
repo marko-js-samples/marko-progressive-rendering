@@ -1,95 +1,106 @@
 <lasso-page package-path="./browser.json"/>
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta itemprop="description" name="Description" content="Async Fragments Demo using Marko">
-
-    <title>Async Fragments Demo using Marko</title>
-    <lasso-head/>
-</head>
-<body w-bind>
-    <header>
-        <h1>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta itemprop="description" name="Description"
+            content="Async Fragments Demo using Marko"/>
+        <title>
             Async Fragments Demo using Marko
-        </h1>
+        </title>
+        <lasso-head/>
+    </head>
+    <body w-bind>
+        <header>
+            <h1>
+                Async Fragments Demo using Marko
+            </h1>
+            <a href="https://github.com/raptorjs-samples/marko-progressive-rendering"
+                target="_blank">
 
-        <a href="https://github.com/raptorjs-samples/marko-progressive-rendering"
-            target="_blank">
-            View code on Github
-        </a>
+                View code on Github
 
-    </header>
-
-    <section class="options">
-        <h2>Options</h2>
-
-        <def function="renderModeOption(type, desc)">
-            <span if="data.renderMode === type">
-                <b>$desc</b> ←
-            </span>
-            <span else>
-                <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}">$desc</a>
-            </span>
-        </def>
-
-        <fieldset>
-            <legend>Page Render Mode</legend>
-            <ul>
-                <li>
-                    ${renderModeOption('single-chunk', 'Single Chunk')}
-                </li>
-                <li>
-                    ${renderModeOption('progressive-in-order', 'Progressive (in-order)')}
-                </li>
-                <li>
-                    ${renderModeOption('progressive-out-of-order', 'Progressive (out-of-order)')}
-                </li>
-            </ul>
-        </fieldset>
-
-
-        <def function="jsLocationOption(loc, desc)">
-            <span if="data.jsLocation === loc">
-                <b>$desc ←</b>
-            </span>
-            <span else>
-                <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}">$!desc</a>
-            </span>
-        </def>
-
-        <fieldset>
-            <legend>Location of Script Tags</legend>
-            <ul>
-                <li>
-                    ${jsLocationOption('middle', 'Before async fragments')}
-                </li>
-                <li>
-                    ${jsLocationOption('bottom', 'After async fragments')}
-                </li>
-            </ul>
-        </fieldset>
-    </section>
-
-    <main>
-        <h2 w-id="loading" class="loading">
-            <span w-id="loadingMessage">Page loading...</span>
-            <button type="button" w-id="refreshButton">↺ Refresh</button>
-            <button type="button" w-id="newWindowButton">↗ Open in New Window</button>
-
-        </h2>
-        <div class="iframe-container">
-            <iframe src="about:blank" w-id="iframe"></iframe>
-        </div>
-
-    </main>
-
-    <lasso-body/>
-    <init-widgets/>
-
-    <browser-refresh/>
-</body>
+            </a>
+        </header>
+        <section class="options">
+            <h2>
+                Options
+            </h2>
+            <macro renderModeOption(type, desc)>
+                <span if(data.renderMode === type)>
+                    <b>
+                        ${desc}
+                    </b>
+                    ←
+                </span>
+                <span else>
+                    <a href="/?renderMode=${type}&amp;jsLocation=${data.jsLocation}">
+                        ${desc}
+                    </a>
+                </span>
+            </macro>
+            <fieldset>
+                <legend>
+                    Page Render Mode
+                </legend>
+                <ul>
+                    <li>
+                        <renderModeOption('single-chunk', 'Single Chunk')/>
+                    </li>
+                    <li>
+                        <renderModeOption('progressive-in-order', 'Progressive (in-order)')/>
+                    </li>
+                    <li>
+                        <renderModeOption('progressive-out-of-order', 'Progressive (out-of-order)')/>
+                    </li>
+                </ul>
+            </fieldset>
+            <macro jsLocationOption(loc, desc)>
+                <span if(data.jsLocation === loc)>
+                    <b>
+                        ${desc} ←
+                    </b>
+                </span>
+                <span else>
+                    <a href="?renderMode=${data.renderMode}&amp;jsLocation=${loc}">
+                        $!{desc}
+                    </a>
+                </span>
+            </macro>
+            <fieldset>
+                <legend>
+                    Location of Script Tags
+                </legend>
+                <ul>
+                    <li>
+                        <jsLocationOption('middle', 'Before async fragments')/>
+                    </li>
+                    <li>
+                        <jsLocationOption('bottom', 'After async fragments')/>
+                    </li>
+                </ul>
+            </fieldset>
+        </section>
+        <main>
+            <h2 w-id="loading" class="loading">
+                <span w-id="loadingMessage">
+                    Page loading...
+                </span>
+                <button type="button" w-id="refreshButton">
+                    ↺ Refresh
+                </button>
+                <button type="button" w-id="newWindowButton">
+                    ↗ Open in New Window
+                </button>
+            </h2>
+            <div class="iframe-container">
+                <iframe src="about:blank" w-id="iframe"/>
+            </div>
+        </main>
+        <lasso-body/>
+        <init-widgets/>
+        <browser-refresh/>
+    </body>
 </html>
