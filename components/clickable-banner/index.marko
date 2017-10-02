@@ -1,0 +1,34 @@
+class {
+    onCreate(input) {
+        this.state = {
+            mounted: false,
+            count: input.initialCount || 0,
+            clicked: false
+        }
+    }
+
+    onMount() {
+        this.state.mounted = true;
+    }
+
+    updateCounter() {
+        this.state.clicked = true;
+        this.state.count++;
+    }
+}
+
+<div class=[input.type, state.clicked && 'clicked'] on-click('updateCounter')>
+    <h2><include(input.title)/></h2>
+
+    $ {
+        var statusText;
+        if (state.clicked) {
+            statusText = 'Clicked! New counter value is ' + state.count;
+        } else if (state.mounted) {
+            statusText = 'Behavior Attached (click me)';
+        } else {
+            statusText = '';
+        }
+    }
+    <span>${statusText}</span>
+</div>

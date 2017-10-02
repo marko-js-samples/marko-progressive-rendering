@@ -1,37 +1,45 @@
 h1 {
-	font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 h2 {
-	font-weight: normal;
-	font-size: 1.2em;
-	text-transform: uppercase;
+    font-weight: normal;
+    font-size: 1.2em;
+    text-transform: uppercase;
 }
 
 body {
-	font: 12pt/1.5em sans-serif;
+    font: 12pt/1.5em sans-serif;
 }
 
-header {
-	background-color: #16a085;
-	padding: 5px;
-	color: white;
+header,
+.header {
+    background-color: #16a085;
+    padding: 5px;
+    color: white;
 }
 
-nav {
-	background-color: #e67e22;
-	padding: 5px;
-	color: white;
+nav,
+.nav {
+    background-color: #e67e22;
+    padding: 5px;
+    color: white;
 }
 
-main {
-	background-color: #c0392b;
-	padding: 5px;
-	color: white;
+main,
+.main {
+    background-color: #c0392b;
+    padding: 5px;
+    color: white;
 }
 
-footer {
-	background-color: #8e44ad;
-	padding: 5px;
-	color: white;
+footer,
+.footer {
+    background-color: #8e44ad;
+    padding: 5px;
+    color: white;
+}
+
+.clicked {
+    background-color: #2c3e50;
 }

@@ -1,10 +1,9 @@
-var template = require('marko').load(require.resolve('./template.marko'));
+var template = require('./index.marko');
 
 module.exports = function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
     var renderMode = req.query.renderMode || 'progressive-out-of-order';
-    var jsLocation = req.query.jsLocation || 'middle';
     var reorder = renderMode === 'progressive-out-of-order';
 
     var viewModel = {
@@ -21,20 +20,19 @@ module.exports = function(req, res) {
             setTimeout(callback, args.delay);
         },
         renderMode: renderMode,
-        reorderEnabled: reorder,
-        jsLocation: jsLocation
+        reorderEnabled: reorder
     };
 
     if (renderMode === 'single-chunk') {
-        template.render(viewModel, function(err, html) {
+        template.render(viewModel, function(err, result) {
             if (err) {
                 res.end(err.toString());
                 return;
             }
-            res.end(html);
+
+            res.end(result.getOutput());
         });
     } else {
         template.render(viewModel, res);
     }
-
 };
