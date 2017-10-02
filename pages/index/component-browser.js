@@ -1,5 +1,6 @@
-module.exports = require('marko-widgets').defineWidget({
-    init: function(widgetConfig) {
+module.exports = {
+    onMount() {
+        var renderMode = this.input.renderMode;
         var loadingEl = this.getEl('loading');
         var iframe = this.getEl('iframe');
         var loadingMessageEl = this.getEl('loadingMessage');
@@ -14,9 +15,7 @@ module.exports = require('marko-widgets').defineWidget({
 
             startTime = Date.now();
             if (typeof url !== 'string') {
-                url = '/iframe?renderMode=' + widgetConfig.renderMode +
-                    '&jsLocation=' +  widgetConfig.jsLocation +
-                    '&ts=' + startTime;
+                url = '/iframe?renderMode=' + renderMode + '&ts=' + startTime;
             }
 
             var done = false;
@@ -42,8 +41,6 @@ module.exports = require('marko-widgets').defineWidget({
             };
 
             iframe.onload = handleOnload;
-
-
             iframe.src = url;
         }
 
@@ -56,10 +53,8 @@ module.exports = require('marko-widgets').defineWidget({
         }
 
         newWindowButton.addEventListener('click', function() {
-            var url = '/iframe?renderMode=' + widgetConfig.renderMode +
-                '&jsLocation=' +  widgetConfig.jsLocation;
-
+            var url = '/iframe?renderMode=' + renderMode;
             window.open(url, '_blank');
         });
     }
-});
+};

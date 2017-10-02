@@ -1,5 +1,5 @@
-
-require('marko/compiler').defaultOptions.preserveWhitespace = true;
+require('marko/express');
+require('marko/node-require');
 
 var express = require('express');
 var serveStatic = require('serve-static');
@@ -8,18 +8,22 @@ var compression = require('compression');
 var app = express();
 var port = process.env.PORT || 8080;
 
-app.use(compression()); // Enable gzip compression for all HTTP responses
+var isProduction = process.env.NODE_ENV === 'production';
 
-app.use('/static', function(req, res, next) {
-    setTimeout(next, 200);
+require('lasso').configure({
+    plugins: [
+        'lasso-marko' // Allow Marko templates to be compiled and transported to the browser
+    ],
+    outputDir: __dirname + '/static',
+    bundlingEnabled: isProduction,
+    minify: isProduction,
+    fingerprintsEnabled: isProduction,
 });
 
-app.use('/static', serveStatic(__dirname + '/static', {
-    lastModified: false
-}));
+app.use(compression()); // Enable gzip compression for all HTTP responses
+app.use(require('lasso/middleware').serveStatic());
 
 app.get('/iframe', require('./pages/iframe'));
-
 app.get('/', require('./pages/index'));
 
 app.listen(port, function() {

@@ -1,9 +1,5 @@
 {
     "dependencies": [
-        "style.css",
-        "require: ./header-widget",
-        "require: ./nav-widget",
-        "require: ./main-widget",
-        "require: ./footer-widget"
+        "style.css"
     ]
 }

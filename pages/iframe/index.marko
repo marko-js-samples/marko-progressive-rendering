@@ -1,0 +1,77 @@
+<lasso-page package-path="./browser.json"/>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>
+            Async Fragments Demo using Marko
+        </title>
+        <lasso-head/>
+        <script>
+            function clearPage() {
+                document.body.innerHTML = 'Reloading page... Waiting for server...';
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Async Fragments Demo using Marko</h1>
+        <p>Top text</p>
+
+        <await(header from data.headerDataProvider) arg-delay=750
+            name="header" client-reorder=data.reorderEnabled>
+
+            $ var headerCount = 6;
+            <clickable-banner type="header" initial-count=headerCount>
+                <@title>
+                    1) Header
+                    <small>initial counter = ${headerCount}</small>
+                </@title>
+            </clickable-banner>
+        </await>
+
+        <await(nav from data.navDataProvider) arg-delay=500
+            client-reorder=data.reorderEnabled show-after="header">
+
+            <clickable-banner type="nav">
+                <@title>
+                    2) Nav
+                </@title>
+            </clickable-banner>
+        </await>
+
+        <await(main from data.mainDataProvider) arg-delay=3000
+            timeout=5000 client-reorder=data.reorderEnabled>
+
+            <await-placeholder>
+                Loading "main"...
+            </await-placeholder>
+            <await-timeout>
+                A timeout occurred!
+            </await-timeout>
+
+            <clickable-banner type="main">
+                <@title>
+                    3) Main
+                </@title>
+            </clickable-banner>
+        </await>
+
+        <await(footer from data.footerDataProvider) arg-delay=1000
+            client-reorder=data.reorderEnabled>
+
+            <clickable-banner type="footer">
+                <@title>
+                    4) Footer
+                </@title>
+            </clickable-banner>
+        </await>
+
+        <p>
+            Bottom text
+        </p>
+
+        <lasso-body/>
+    </body>
+</html>
