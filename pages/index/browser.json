@@ -1,6 +1,6 @@
 {
     "dependencies": [
         "style.css",
-        "require: ./widget"
+        "require: ./index.marko"
     ]
 }
