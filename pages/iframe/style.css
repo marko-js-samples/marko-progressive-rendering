@@ -8,6 +8,10 @@ h2 {
     text-transform: uppercase;
 }
 
+h2 > small {
+    text-transform: none;
+}
+
 body {
     font: 12pt/1.5em sans-serif;
 }
